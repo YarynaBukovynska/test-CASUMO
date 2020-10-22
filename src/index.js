@@ -1,12 +1,26 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
+import { Provider } from 'react-redux';
+import { IntlProvider } from 'react-intl';
 import './index.css';
 import App from './App';
 import * as serviceWorker from './serviceWorker';
+import { store } from './store';
+import { getUserLocale } from './utils';
+
+const localeData = getUserLocale();
 
 ReactDOM.render(
   <React.StrictMode>
-    <App />
+    <Provider store={store()}>
+      <IntlProvider
+        locale={localeData.locale}
+        defaultLocale='en'
+        messages={localeData.messages}
+      >
+        <App />
+      </IntlProvider>
+    </Provider>
   </React.StrictMode>,
   document.getElementById('root')
 );
